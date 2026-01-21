@@ -1,0 +1,146 @@
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["customer", "order", "public", "user"]
+}
+
+model customers {
+  id                                String    @id
+  name                              String
+  phone                             String    @unique
+  address                           String?
+  created_at                        DateTime  @db.Timestamptz(6)
+  created_by                        String
+  updated_at                        DateTime? @db.Timestamptz(6)
+  updated_by                        String?
+  deleted_at                        DateTime? @db.Timestamptz(6)
+  users_customers_created_byTousers users     @relation("customers_created_byTousers", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customers_created_by")
+  users_customers_updated_byTousers users?    @relation("customers_updated_byTousers", fields: [updated_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_customers_updated_by")
+  orders                            orders[]
+
+  @@schema("customer")
+}
+
+model order_services {
+  id                                     String    @id
+  service_id                             String
+  order_id                               String
+  unit_type                              String
+  quantity_in_unit                       Float
+  price                                  Decimal   @db.Decimal
+  created_at                             DateTime  @db.Timestamptz(6)
+  created_by                             String
+  updated_at                             DateTime? @db.Timestamptz(6)
+  updated_by                             String?
+  deleted_at                             DateTime? @db.Timestamptz(6)
+  users_order_services_created_byTousers users     @relation("order_services_created_byTousers", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_services_created_by")
+  orders                                 orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_services_order")
+  services                               services  @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_services_service")
+  users_order_services_updated_byTousers users?    @relation("order_services_updated_byTousers", fields: [updated_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_services_updated_by")
+
+  @@schema("order")
+}
+
+model orders {
+  id                             String           @id
+  customer_id                    String
+  payment_method_id              String?
+  total_price                    Decimal          @db.Decimal
+  is_paid                        Boolean
+  deadline                       DateTime         @db.Timestamptz(6)
+  status                         String
+  created_at                     DateTime         @db.Timestamptz(6)
+  created_by                     String
+  updated_at                     DateTime?        @db.Timestamptz(6)
+  updated_by                     String?
+  deleted_at                     DateTime?        @db.Timestamptz(6)
+  order_services                 order_services[]
+  users_orders_created_byTousers users            @relation("orders_created_byTousers", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_orders_created_by")
+  customers                      customers        @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_orders_customer")
+  payment_methods                payment_methods? @relation(fields: [payment_method_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_orders_payment_method")
+  users_orders_updated_byTousers users?           @relation("orders_updated_byTousers", fields: [updated_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_orders_updated_by")
+  notifications                  notifications[]
+
+  @@schema("order")
+}
+
+model services {
+  id                               String           @id
+  name                             String
+  unit_type                        String
+  price_per_gram                   Decimal?         @db.Decimal
+  price_per_unit                   Decimal          @db.Decimal
+  duration                         String
+  created_at                       DateTime         @db.Timestamptz(6)
+  created_by                       String
+  updated_at                       DateTime?        @db.Timestamptz(6)
+  updated_by                       String?
+  deleted_at                       DateTime?        @db.Timestamptz(6)
+  order_services                   order_services[]
+  users_services_created_byTousers users            @relation("services_created_byTousers", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_services_created_by")
+  users_services_updated_byTousers users?           @relation("services_updated_byTousers", fields: [updated_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_services_updated_by")
+
+  @@schema("order")
+}
+
+model notifications {
+  id         String    @id
+  title      String
+  content    String
+  order_id   String?
+  created_at DateTime? @db.Timestamptz(6)
+  deleted_at DateTime? @db.Timestamptz(6)
+  orders     orders?   @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_notifications_order")
+
+  @@schema("public")
+}
+
+model payment_methods {
+  id                                      String    @id
+  name                                    String
+  created_at                              DateTime  @db.Timestamptz(6)
+  created_by                              String
+  updated_at                              DateTime? @db.Timestamptz(6)
+  updated_by                              String?
+  deleted_at                              DateTime? @db.Timestamptz(6)
+  orders                                  orders[]
+  users_payment_methods_created_byTousers users     @relation("payment_methods_created_byTousers", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_payment_methods_created_by")
+  users_payment_methods_updated_byTousers users?    @relation("payment_methods_updated_byTousers", fields: [updated_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_payment_methods_updated_by")
+
+  @@schema("public")
+}
+
+model users {
+  id                                                String            @id
+  full_name                                         String
+  username                                          String
+  password                                          String
+  is_active                                         Boolean
+  created_at                                        DateTime          @db.Timestamptz(6)
+  created_by                                        String
+  updated_at                                        DateTime?         @db.Timestamptz(6)
+  updated_by                                        String?
+  deleted_at                                        DateTime?         @db.Timestamptz(6)
+  role                                              String
+  customers_customers_created_byTousers             customers[]       @relation("customers_created_byTousers")
+  customers_customers_updated_byTousers             customers[]       @relation("customers_updated_byTousers")
+  order_services_order_services_created_byTousers   order_services[]  @relation("order_services_created_byTousers")
+  order_services_order_services_updated_byTousers   order_services[]  @relation("order_services_updated_byTousers")
+  orders_orders_created_byTousers                   orders[]          @relation("orders_created_byTousers")
+  orders_orders_updated_byTousers                   orders[]          @relation("orders_updated_byTousers")
+  services_services_created_byTousers               services[]        @relation("services_created_byTousers")
+  services_services_updated_byTousers               services[]        @relation("services_updated_byTousers")
+  payment_methods_payment_methods_created_byTousers payment_methods[] @relation("payment_methods_created_byTousers")
+  payment_methods_payment_methods_updated_byTousers payment_methods[] @relation("payment_methods_updated_byTousers")
+  users_users_created_byTousers                     users             @relation("users_created_byTousers", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_created_by")
+  other_users_users_created_byTousers               users[]           @relation("users_created_byTousers")
+  users_users_updated_byTousers                     users?            @relation("users_updated_byTousers", fields: [updated_by], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_updated_by")
+  other_users_users_updated_byTousers               users[]           @relation("users_updated_byTousers")
+
+  @@schema("user")
+}
