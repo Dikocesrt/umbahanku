@@ -23,17 +23,15 @@ export default function Dashboard() {
         <div
           id="sidebarOverlay"
           onClick={closeSidebar}
-          className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-all duration-300 ${
-            sidebarOpen ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+          className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-all duration-300 ${sidebarOpen ? "opacity-100 visible" : "opacity-0 invisible"
+            }`}
         ></div>
 
         {/* Sidebar */}
         <aside
           id="sidebar"
-          className={`fixed lg:static inset-y-0 left-0 w-60 bg-white shadow-lg flex flex-col z-50 transform transition-transform duration-300 ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-          }`}
+          className={`fixed lg:static inset-y-0 left-0 w-60 bg-white shadow-lg flex flex-col z-50 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+            }`}
         >
           {/* Sidebar Header - Logo */}
           <div className="border-b border-gray-100">
