@@ -51,13 +51,3 @@ export function errorResponse(
 
     return NextResponse.json(response, { status });
 }
-
-export function validationErrorResponse(errors: ValidationError[]) {
-    return errorResponse("Validasi gagal", 400, errors);
-}
-
-export function internalErrorResponse(
-    message: string = "Terjadi kesalahan pada server",
-) {
-    return errorResponse(message, 500);
-}

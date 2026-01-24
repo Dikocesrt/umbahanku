@@ -1,0 +1,2 @@
+export const USER_ROLES_SUPERADMIN = "SUPERADMIN";
+export const USER_ROLES_ADMIN = "ADMIN";
