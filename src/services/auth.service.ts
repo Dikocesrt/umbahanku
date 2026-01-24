@@ -1,7 +1,8 @@
 import { findUserByUsername } from "@/repositories/user.repository";
 import { verifyPassword } from "@/lib/password";
 import { generateToken } from "@/lib/jwt";
-import { LoginRequest, LoginResponse } from "@/schemas/auth.schema";
+import { loginRequestSchema, LoginResponse } from "@/dtos/auth.dto";
+import { ValidationError } from "@/errors";
 
 export class AuthError extends Error {
     constructor(
@@ -13,17 +14,24 @@ export class AuthError extends Error {
     }
 }
 
-export async function login(request: LoginRequest): Promise<LoginResponse> {
-    // 1. Find user by username
-    const user = await findUserByUsername(request.username);
+export async function login(request: unknown): Promise<LoginResponse> {
+    const parsed = loginRequestSchema.safeParse(request);
+    if (!parsed.success) {
+        throw new ValidationError(
+            parsed.error.issues.map((issue) => ({
+                field: issue.path.join("."),
+                message: issue.message,
+            })),
+        );
+    }
 
+    const user = await findUserByUsername(parsed.data.username);
     if (!user) {
         throw new AuthError("Username atau password salah");
     }
 
-    // 2. Verify password
     const isPasswordValid = await verifyPassword(
-        request.password,
+        parsed.data.password,
         user.password,
     );
 
@@ -31,18 +39,15 @@ export async function login(request: LoginRequest): Promise<LoginResponse> {
         throw new AuthError("Username atau password salah");
     }
 
-    // 3. Check if user is active
     if (!user.is_active) {
         throw new AuthError("Akun tidak aktif. Silakan hubungi admin.", 403);
     }
 
-    // 4. Generate JWT token
     const token = generateToken({
         userId: user.id,
         username: user.username,
         role: user.role,
     });
 
-    // 5. Return response (hanya token sesuai schema kamu)
     return { token };
 }
