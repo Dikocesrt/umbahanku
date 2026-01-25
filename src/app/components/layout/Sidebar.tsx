@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
     sidebarOpen: boolean;
@@ -8,6 +10,15 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
+    const pathname = usePathname();
+
+    // Helper function to check if link is active
+    const isActive = (path: string) => pathname === path;
+
+    // Style classes
+    const activeClass = "flex items-center gap-2 px-3 py-2 text-white bg-blue-300 rounded-lg shadow-md shadow-blue-300/20 transition-all";
+    const inactiveClass = "flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all";
+
     return (
         <>
             {/* Sidebar Overlay (Mobile Only) */}
@@ -69,16 +80,17 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                 </div>
 
                 {/* Sidebar Navigation */}
-                <nav className="flex-1 px-3 py-2 space-y-0.5">
+                <nav className="flex-1 px-3 py-2 space-y-0.5 overflow-y-auto">
                     {/* Menu Section: Main */}
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-2 mb-1">
                         Main Menu
                     </p>
 
-                    {/* Menu Item: Dashboard (Active) */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-white bg-blue-300 rounded-lg shadow-md shadow-blue-300/20 transition-all"
+                    {/* Menu Item: Dashboard */}
+                    <Link
+                        href="/"
+                        onClick={closeSidebar}
+                        className={isActive("/") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -94,7 +106,7 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Dashboard</span>
-                    </a>
+                    </Link>
 
                     {/* Menu Section: Pesanan */}
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-2 mb-1 mt-4">
@@ -102,9 +114,10 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                     </p>
 
                     {/* Buat Pesanan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/orders/new"
+                        onClick={closeSidebar}
+                        className={isActive("/orders/new") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -120,12 +133,13 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Buat Pesanan</span>
-                    </a>
+                    </Link>
 
                     {/* Daftar Pesanan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/orders"
+                        onClick={closeSidebar}
+                        className={isActive("/orders") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -141,12 +155,13 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Daftar Pesanan</span>
-                    </a>
+                    </Link>
 
                     {/* Proses Cucian */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/orders/process"
+                        onClick={closeSidebar}
+                        className={isActive("/orders/process") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -165,12 +180,13 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                         <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold bg-blue-100 text-blue-300 rounded-full">
                             12
                         </span>
-                    </a>
+                    </Link>
 
                     {/* Pengambilan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/orders/pickup"
+                        onClick={closeSidebar}
+                        className={isActive("/orders/pickup") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -189,7 +205,7 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                         <span className="ml-auto px-1.5 py-0.5 text-[10px] font-bold bg-amber-100 text-amber-500 rounded-full">
                             5
                         </span>
-                    </a>
+                    </Link>
 
                     {/* Menu Section: Data Laundry */}
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-2 mb-1 mt-4">
@@ -197,9 +213,10 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                     </p>
 
                     {/* Data Layanan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/services"
+                        onClick={closeSidebar}
+                        className={isActive("/services") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -215,12 +232,13 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Data Layanan</span>
-                    </a>
+                    </Link>
 
                     {/* Data Pelanggan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/customers"
+                        onClick={closeSidebar}
+                        className={isActive("/customers") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -236,12 +254,13 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Data Pelanggan</span>
-                    </a>
+                    </Link>
 
                     {/* Data Admin */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/admins"
+                        onClick={closeSidebar}
+                        className={isActive("/admins") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -257,7 +276,7 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Data Admin</span>
-                    </a>
+                    </Link>
 
                     {/* Menu Section: Laporan */}
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-2 mb-1 mt-4">
@@ -265,9 +284,10 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                     </p>
 
                     {/* Pemasukan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/reports/income"
+                        onClick={closeSidebar}
+                        className={isActive("/reports/income") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -283,12 +303,13 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Pemasukan</span>
-                    </a>
+                    </Link>
 
-                    {/* Pesanan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    {/* Laporan Pesanan */}
+                    <Link
+                        href="/reports/orders"
+                        onClick={closeSidebar}
+                        className={isActive("/reports/orders") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -304,12 +325,13 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Pesanan</span>
-                    </a>
+                    </Link>
 
                     {/* Aktifitas Karyawan */}
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/reports/activity"
+                        onClick={closeSidebar}
+                        className={isActive("/reports/activity") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -325,14 +347,15 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Aktifitas Karyawan</span>
-                    </a>
+                    </Link>
                 </nav>
 
                 {/* Settings - Fixed at Bottom */}
                 <div className="px-3 py-3 border-t border-gray-100 mt-auto">
-                    <a
-                        href="#"
-                        className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-300 hover:bg-blue-50 rounded-lg transition-all"
+                    <Link
+                        href="/settings"
+                        onClick={closeSidebar}
+                        className={isActive("/settings") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -354,7 +377,7 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                             />
                         </svg>
                         <span className="text-sm font-medium">Settings</span>
-                    </a>
+                    </Link>
                 </div>
             </aside>
         </>

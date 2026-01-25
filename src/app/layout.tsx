@@ -28,7 +28,9 @@ export default function RootLayout({
         <html lang="en" className={poppins.variable}>
             <body className={`bg-gray-50 min-h-screen`}>
                 <LayoutWrapper>
-                    {children}
+                    <div className="flex-1 p-4 lg:p-8 overflow-y-auto">
+                        {children}
+                    </div>
                 </LayoutWrapper>
             </body>
         </html>
