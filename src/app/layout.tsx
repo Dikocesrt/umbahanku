@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import LayoutWrapper from "./components/layout/LayoutWrapper";
 
 const poppins = Poppins({
     variable: "--font-poppins",
@@ -20,15 +21,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
-}: Readonly<{
+}: {
     children: React.ReactNode;
-}>) {
+}) {
     return (
-        <html lang="en">
-            <body
-                className={`${poppins.variable} ${geistMono.variable} antialiased font-sans`}
-            >
-                {children}
+        <html lang="en" className={poppins.variable}>
+            <body className={`bg-gray-50 min-h-screen`}>
+                <LayoutWrapper>
+                    {children}
+                </LayoutWrapper>
             </body>
         </html>
     );
