@@ -236,9 +236,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Data Pelanggan */}
                     <Link
-                        href="/customers"
+                        href="/master/customers"
                         onClick={closeSidebar}
-                        className={isActive("/customers") ? activeClass : inactiveClass}
+                        className={isActive("/master/customers") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
