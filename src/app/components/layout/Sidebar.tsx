@@ -159,9 +159,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Proses Cucian */}
                     <Link
-                        href="/orders/process"
+                        href="/orders/proses"
                         onClick={closeSidebar}
-                        className={isActive("/orders/process") ? activeClass : inactiveClass}
+                        className={isActive("/orders/proses") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -214,9 +214,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Data Layanan */}
                     <Link
-                        href="/services"
+                        href="/master/services"
                         onClick={closeSidebar}
-                        className={isActive("/services") ? activeClass : inactiveClass}
+                        className={isActive("/master/services") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -236,9 +236,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Data Pelanggan */}
                     <Link
-                        href="/customers"
+                        href="/master/customers"
                         onClick={closeSidebar}
-                        className={isActive("/customers") ? activeClass : inactiveClass}
+                        className={isActive("/master/customers") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -258,9 +258,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Data Admin */}
                     <Link
-                        href="/admins"
+                        href="/master/admins"
                         onClick={closeSidebar}
-                        className={isActive("/admins") ? activeClass : inactiveClass}
+                        className={isActive("/master/admins") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -285,9 +285,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Pemasukan */}
                     <Link
-                        href="/reports/income"
+                        href="/reports/revenue"
                         onClick={closeSidebar}
-                        className={isActive("/reports/income") ? activeClass : inactiveClass}
+                        className={isActive("/reports/revenue") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
@@ -329,9 +329,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Aktifitas Karyawan */}
                     <Link
-                        href="/reports/activity"
+                        href="/reports/audit-log"
                         onClick={closeSidebar}
-                        className={isActive("/reports/activity") ? activeClass : inactiveClass}
+                        className={isActive("/reports/audit-log") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
