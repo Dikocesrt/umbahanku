@@ -214,7 +214,7 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Data Layanan */}
                     <Link
-                        href="/services"
+                        href="/master/services"
                         onClick={closeSidebar}
                         className={isActive("/services") ? activeClass : inactiveClass}
                     >
