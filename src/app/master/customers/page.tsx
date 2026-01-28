@@ -5,10 +5,12 @@ import StatsGroup from "@/app/components/shared/stats/StatsGroup";
 import CustomersTable from "@/app/components/customers/CustomersTable";
 import CustomersMobile from "@/app/components/customers/CustomersMobile";
 import CustomersModal from "@/app/components/customers/CustomersModal";
+import CustomersEditModal from "@/app/components/customers/CustomersEditModal";
 import DeleteConfirmModal from "@/app/components/shared/DeleteConfirmModal";
 
 export default function Customers() {
     const [openModal, setOpenModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const handleDelete = () => {
@@ -67,12 +69,14 @@ export default function Customers() {
                 {/* Search, Tambah Pelanggan & Tabel - Desktop */}
                 <CustomersTable
                     onAdd={() => setOpenModal(true)}
+                    onEdit={() => setShowEditModal(true)}
                     onDelete={() => setShowDeleteModal(true)}
                 />
 
                 {/* Search, Tambah Pelanggan, Card List Pelanggan (Mobile) */}
                 <CustomersMobile
                     onAdd={() => setOpenModal(true)}
+                    onEdit={() => setShowEditModal(true)}
                     onDelete={() => setShowDeleteModal(true)}
                 />
             </div>
@@ -81,6 +85,12 @@ export default function Customers() {
             <CustomersModal
                 open={openModal}
                 onClose={() => setOpenModal(false)}
+            />
+
+            {/* POPUP EDIT PELANGGAN */}
+            <CustomersEditModal
+                open={showEditModal}
+                onClose={() => setShowEditModal(false)}
             />
 
             {/* Modal Delete Confirm */}
