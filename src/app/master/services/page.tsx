@@ -5,12 +5,20 @@ import StatsGroup from "@/app/components/shared/stats/StatsGroup";
 import TabelService from "@/app/components/services/TabelService";
 import ServicesModal from "@/app/components/services/ServicesModal";
 import ServicesEditModal from "@/app/components/services/ServicesEditModal";
+import DeleteConfirmModal from "@/app/components/shared/DeleteConfirmModal";
 import ListServiceMobile from "@/app/components/services/ListServiceMobile";
 
 export default function Services() {
 
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const handleDelete = () => {
+        // Logika hapus data di sini
+        console.log("Data dihapus!");
+        setShowDeleteModal(false);
+    };
 
     const statsData = [
         {
@@ -58,11 +66,19 @@ export default function Services() {
                 <StatsGroup stats={statsData} />
 
                 {/* Tabel Layanan - Desktop */}
-                <TabelService onAdd={() => setShowModal(true)} onEdit={() => setShowEditModal(true)} />
+                <TabelService
+                    onAdd={() => setShowModal(true)}
+                    onEdit={() => setShowEditModal(true)}
+                    onDelete={() => setShowDeleteModal(true)}
+                />
 
                 {/* Card List Layanan(Mobile) */}
                 <div className="md:hidden space-y-2 rounded-xl p-3 shadow-sm border border-gray-200">
-                    <ListServiceMobile onAdd={() => setShowModal(true)} onEdit={() => setShowEditModal(true)} />
+                    <ListServiceMobile
+                        onAdd={() => setShowModal(true)}
+                        onEdit={() => setShowEditModal(true)}
+                        onDelete={() => setShowDeleteModal(true)}
+                    />
                 </div>
 
             </div>
@@ -72,6 +88,15 @@ export default function Services() {
 
             {/* Modal Edit */}
             <ServicesEditModal open={showEditModal} onClose={() => setShowEditModal(false)} />
+
+            {/* Modal Delete Confirm */}
+            <DeleteConfirmModal
+                open={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={handleDelete}
+                title="Hapus Layanan"
+                message="Apakah Anda yakin ingin menghapus layanan ini? Data yang dihapus tidak dapat dikembalikan."
+            />
         </>
     );
 }
