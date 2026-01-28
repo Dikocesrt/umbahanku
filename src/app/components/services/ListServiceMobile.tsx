@@ -4,8 +4,8 @@ export default function ListServiceMobile({ onAdd }: { onAdd: () => void }) {
             {/* Header Section Mobile */}
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h2 className="text-lg font-semibold text-gray-900">Data Pelanggan</h2>
-                    <p className="text-xs text-gray-500">Kelola data pelanggan laundry</p>
+                    <h2 className="text-lg font-semibold text-gray-900">Data Layanan</h2>
+                    <p className="text-xs text-gray-500">Kelola data layanan laundry</p>
                 </div>
                 {/* Action Buttons */}
                 <div className="flex items-center gap-2 p-1">

@@ -26,7 +26,7 @@ export default function Services() {
         {
             title: "Ditambahkan Hari Ini",
             value: 7,
-            bgColor: "bg-cyan-600",
+            bgColor: "bg-emerald-600",
             textColor: "text-emerald-100",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,7 +38,7 @@ export default function Services() {
         {
             title: "Terakhir Diperbaharui",
             value: 7,
-            bgColor: "bg-cyan-600",
+            bgColor: "bg-blue-500",
             textColor: "text-emerald-100",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@ export default function Services() {
                 <TabelService onAdd={() => setShowModal(true)} />
 
                 {/* Card List Layanan(Mobile) */}
-                <div className="md:hidden space-y-6 rounded-xl p-3 shadow-sm border border-gray-200">
+                <div className="md:hidden space-y-2 rounded-xl p-3 shadow-sm border border-gray-200">
                     <ListServiceMobile onAdd={() => setShowModal(true)} />
                 </div>
 

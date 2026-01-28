@@ -258,9 +258,9 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
 
                     {/* Data Admin */}
                     <Link
-                        href="/admins"
+                        href="/master/admins"
                         onClick={closeSidebar}
-                        className={isActive("/admins") ? activeClass : inactiveClass}
+                        className={isActive("/master/admins") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"
