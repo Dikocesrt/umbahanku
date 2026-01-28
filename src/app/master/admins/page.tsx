@@ -14,8 +14,8 @@ export default function Admins() {
         {
             title: "Total Admin",
             value: 3,
-            bgColor: "bg-indigo-500",
-            textColor: "text-indigo-100",
+            bgColor: "bg-cyan-600",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -26,7 +26,7 @@ export default function Admins() {
         {
             title: "Admin Aktif",
             value: 2,
-            bgColor: "bg-green-500",
+            bgColor: "bg-cyan-600",
             textColor: "text-green-100",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,8 +38,8 @@ export default function Admins() {
         {
             title: "Admin Nonaktif",
             value: 1,
-            bgColor: "bg-emerald-500",
-            textColor: "text-emerald-100",
+            bgColor: "bg-cyan-800",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

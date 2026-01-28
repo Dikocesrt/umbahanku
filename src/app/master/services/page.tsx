@@ -15,7 +15,7 @@ export default function Services() {
             title: "Total Layanan",
             value: 7,
             bgColor: "bg-cyan-600",
-            textColor: "text-emerald-100",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -26,8 +26,8 @@ export default function Services() {
         {
             title: "Ditambahkan Hari Ini",
             value: 7,
-            bgColor: "bg-emerald-600",
-            textColor: "text-emerald-100",
+            bgColor: "bg-cyan-700",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -38,8 +38,8 @@ export default function Services() {
         {
             title: "Terakhir Diperbaharui",
             value: 7,
-            bgColor: "bg-blue-500",
-            textColor: "text-emerald-100",
+            bgColor: "bg-cyan-800",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

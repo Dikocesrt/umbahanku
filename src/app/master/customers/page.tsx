@@ -26,15 +26,15 @@ export default function Customers() {
         {
             title: "Ditambahkan Hari Ini",
             value: 7,
-            bgColor: "bg-emerald-500",
-            textColor: "text-emerald-100",
+            bgColor: "bg-cyan-700",
+            textColor: "text-white",
             icon: "users",
         },
         {
-            title: "Terakhit Diperbaharui",
+            title: "Terakhir Diperbaharui",
             value: 7,
-            bgColor: "bg-blue-500",
-            textColor: "text-emerald-100",
+            bgColor: "bg-cyan-800",
+            textColor: "text-white",
             icon: "users",
         },
 
