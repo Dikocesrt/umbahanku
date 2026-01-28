@@ -4,11 +4,13 @@ import { useState } from "react";
 import StatsGroup from "@/app/components/shared/stats/StatsGroup";
 import TabelService from "@/app/components/services/TabelService";
 import ServicesModal from "@/app/components/services/ServicesModal";
+import ServicesEditModal from "@/app/components/services/ServicesEditModal";
 import ListServiceMobile from "@/app/components/services/ListServiceMobile";
 
 export default function Services() {
 
     const [showModal, setShowModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     const statsData = [
         {
@@ -56,17 +58,20 @@ export default function Services() {
                 <StatsGroup stats={statsData} />
 
                 {/* Tabel Layanan - Desktop */}
-                <TabelService onAdd={() => setShowModal(true)} />
+                <TabelService onAdd={() => setShowModal(true)} onEdit={() => setShowEditModal(true)} />
 
                 {/* Card List Layanan(Mobile) */}
                 <div className="md:hidden space-y-2 rounded-xl p-3 shadow-sm border border-gray-200">
-                    <ListServiceMobile onAdd={() => setShowModal(true)} />
+                    <ListServiceMobile onAdd={() => setShowModal(true)} onEdit={() => setShowEditModal(true)} />
                 </div>
 
             </div>
 
-            {/* Modal */}
+            {/* Modal Tambah */}
             <ServicesModal open={showModal} onClose={() => setShowModal(false)} />
+
+            {/* Modal Edit */}
+            <ServicesEditModal open={showEditModal} onClose={() => setShowEditModal(false)} />
         </>
     );
 }

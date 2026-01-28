@@ -1,4 +1,4 @@
-export default function TabelService({ onAdd }: { onAdd: () => void }) {
+export default function TabelService({ onAdd, onEdit }: { onAdd: () => void; onEdit: () => void }) {
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hidden md:block">
             {/* Header Section */}
@@ -84,7 +84,7 @@ export default function TabelService({ onAdd }: { onAdd: () => void }) {
                             </td>
                             <td className="px-4 py-3 text-center">
                                 <div className="flex justify-center gap-2">
-                                    <button className="p-1.5 rounded-lg bg-blue-100 text-blue-600">
+                                    <button onClick={() => onEdit()} className="p-1.5 rounded-lg bg-blue-100 text-blue-600">
                                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20.8506 12.0002V6.50992C20.8506 4.48846 19.2118 2.84973 17.1904 2.84973H6.5098C4.48833 2.84973 2.84961 4.48845 2.84961 6.50992V17.4905C2.84961 19.512 4.48833 21.1507 6.5098 21.1507H11.8501" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
                                             <path d="M7.00269 12H10.0018" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
