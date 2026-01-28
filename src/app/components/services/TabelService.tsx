@@ -50,6 +50,7 @@ export default function TabelService({ onAdd }: { onAdd: () => void }) {
                     <thead className="bg-blue-50 text-gray-600">
                         <tr>
                             <th className="px-4 py-3 text-center font-semibold w-14">No</th>
+                            <th className="px-4 py-3 text-center font-semibold w-20">Gambar</th>
                             <th className="px-4 py-3 text-center font-semibold">Nama Layanan</th>
                             <th className="px-4 py-3 text-center font-semibold">Jenis</th>
                             <th className="px-4 py-3 text-center font-semibold">Harga</th>
@@ -61,6 +62,13 @@ export default function TabelService({ onAdd }: { onAdd: () => void }) {
                     <tbody className="divide-y divide-gray-100">
                         <tr className="hover:bg-gray-50 transition">
                             <td className="px-4 py-3 text-center text-gray-500">1</td>
+                            <td className="px-4 py-3 text-center">
+                                <div className="w-12 h-12 mx-auto rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden">
+                                    <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                            </td>
                             <td className="px-4 py-3 text-center font-medium text-gray-900">Cuci Kering</td>
                             <td className="px-4 py-3 text-center">
                                 <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-semibold">
