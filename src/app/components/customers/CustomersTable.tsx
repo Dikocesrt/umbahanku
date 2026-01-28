@@ -1,4 +1,4 @@
-export default function CustomersTable({ onAdd }: { onAdd: () => void }) {
+export default function CustomersTable({ onAdd, onDelete }: { onAdd: () => void; onDelete: () => void }) {
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hidden md:block">
             {/* Header Section */}
@@ -78,7 +78,7 @@ export default function CustomersTable({ onAdd }: { onAdd: () => void }) {
                                         </svg>
                                     </button>
                                     {/* Hapus */}
-                                    <button className="p-1.5 rounded-lg bg-red-100 text-red-600 transition">
+                                    <button onClick={() => onDelete()} className="p-1.5 rounded-lg bg-red-100 text-red-600 transition">
                                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M8 6V4.41421C8 3.63317 8.63317 3 9.41421 3H14.5858C15.3668 3 16 3.63317 16 4.41421V6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
                                             <path d="M5.7372 6.54395V18.9857C5.7372 19.7449 6.35269 20.3604 7.11194 20.3604H16.8894C17.6487 20.3604 18.2642 19.7449 18.2642 18.9857V6.54395M2.90918 6.54395H21.091" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
