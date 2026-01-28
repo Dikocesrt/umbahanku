@@ -23,7 +23,7 @@ export default function AdminsModal({ open, onClose }: { open: boolean; onClose:
                 <div className="p-4 md:p-6">
                     {/* Input Nama */}
                     <div className="mb-3">
-                        <label className="block text-sm text-gray-500 font-medium mb-1">Nama</label>
+                        <label className="block text-sm text-gray-500 font-medium mb-1">Nama Lengkap</label>
                         <input
                             type="text"
                             className="w-full px-3 py-2 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-500"
@@ -31,39 +31,17 @@ export default function AdminsModal({ open, onClose }: { open: boolean; onClose:
                         />
                     </div>
 
-                    {/* Input Email */}
+                    {/* Input Username */}
                     <div className="mb-3">
-                        <label className="block text-sm text-gray-500 font-medium mb-1">Email</label>
+                        <label className="block text-sm text-gray-500 font-medium mb-1">Username</label>
                         <input
-                            type="email"
+                            type="text"
                             className="w-full px-3 py-2 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-500"
-                            placeholder="admin@email.com"
+                            placeholder="Contoh: admin123"
                         />
                     </div>
 
-                    {/* Input No HP */}
-                    <div className="mb-3">
-                        <label className="block text-sm text-gray-500 font-medium mb-1">No HP</label>
-                        <input
-                            type="tel"
-                            className="w-full px-3 py-2 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-500"
-                            placeholder="08xxxxxxxxxx"
-                        />
-                    </div>
 
-                    {/* Input Role */}
-                    <div className="mb-3">
-                        <label className="block text-sm text-gray-500 font-medium mb-1">Role</label>
-                        <select
-                            className="w-full px-3 py-2 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-500"
-                            defaultValue=""
-                        >
-                            <option value="" disabled>Pilih Role</option>
-                            <option value="super_admin">Super Admin</option>
-                            <option value="admin">Admin</option>
-                            <option value="kasir">Kasir</option>
-                        </select>
-                    </div>
 
                     {/* Input Password */}
                     <div className="mb-3">
@@ -78,25 +56,43 @@ export default function AdminsModal({ open, onClose }: { open: boolean; onClose:
                     {/* Input Status */}
                     <div className="mb-3">
                         <label className="block text-sm text-gray-500 font-medium mb-2">Status</label>
-                        <div className="flex gap-4">
-                            <label className="flex items-center gap-2 cursor-pointer">
+                        <div className="grid grid-cols-2 gap-3">
+                            <label className="cursor-pointer">
                                 <input
                                     type="radio"
                                     name="status"
                                     value="aktif"
                                     defaultChecked
-                                    className="w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
+                                    className="hidden peer"
                                 />
-                                <span className="text-sm text-gray-700">Aktif</span>
+                                <div className="border-2 border-gray-200 rounded-xl p-3 text-center transition-all 
+                                    peer-checked:border-green-500 peer-checked:bg-green-100 peer-checked:shadow-md peer-checked:shadow-green-200
+                                    hover:border-green-300 active:scale-95">
+                                    <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-green-200 peer-checked:bg-green-300 flex items-center justify-center">
+                                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-700 peer-checked:text-green-700">Aktif</span>
+                                </div>
                             </label>
-                            <label className="flex items-center gap-2 cursor-pointer">
+                            <label className="cursor-pointer">
                                 <input
                                     type="radio"
                                     name="status"
                                     value="nonaktif"
-                                    className="w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
+                                    className="hidden peer"
                                 />
-                                <span className="text-sm text-gray-700">Nonaktif</span>
+                                <div className="border-2 border-gray-200 rounded-xl p-3 text-center transition-all 
+                                    peer-checked:border-red-500 peer-checked:bg-red-100 peer-checked:shadow-md peer-checked:shadow-red-200
+                                    hover:border-red-300 active:scale-95">
+                                    <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-red-200 flex items-center justify-center">
+                                        <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-700 peer-checked:text-red-700">Nonaktif</span>
+                                </div>
                             </label>
                         </div>
                     </div>

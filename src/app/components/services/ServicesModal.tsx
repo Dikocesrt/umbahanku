@@ -81,24 +81,43 @@ export default function ServicesModal({ open, onClose }: { open: boolean; onClos
                     {/* Input Satuan */}
                     <div className="mb-3">
                         <label className="block text-sm text-gray-500 font-medium mb-2">Satuan</label>
-                        <div className="flex gap-4">
-                            <label className="flex items-center gap-2 cursor-pointer">
+                        <div className="grid grid-cols-2 gap-3">
+                            <label className="cursor-pointer">
                                 <input
                                     type="radio"
                                     name="satuan"
                                     value="pcs"
-                                    className="w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
+                                    defaultChecked
+                                    className="hidden peer"
                                 />
-                                <span className="text-sm text-gray-700">Pcs</span>
+                                <div className="border-2 border-gray-200 rounded-xl p-3 text-center transition-all 
+                                    peer-checked:border-blue-500 peer-checked:bg-blue-100 peer-checked:shadow-md peer-checked:shadow-blue-200
+                                    hover:border-blue-300 active:scale-95">
+                                    <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-blue-200 flex items-center justify-center">
+                                        <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-700 peer-checked:text-blue-700">Pcs</span>
+                                </div>
                             </label>
-                            <label className="flex items-center gap-2 cursor-pointer">
+                            <label className="cursor-pointer">
                                 <input
                                     type="radio"
                                     name="satuan"
                                     value="kg"
-                                    className="w-4 h-4 text-blue-500 border-gray-300 focus:ring-blue-400"
+                                    className="hidden peer"
                                 />
-                                <span className="text-sm text-gray-700">Kg</span>
+                                <div className="border-2 border-gray-200 rounded-xl p-3 text-center transition-all 
+                                    peer-checked:border-orange-500 peer-checked:bg-orange-100 peer-checked:shadow-md peer-checked:shadow-orange-200
+                                    hover:border-orange-300 active:scale-95">
+                                    <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-orange-200 flex items-center justify-center">
+                                        <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-700 peer-checked:text-orange-700">Kg</span>
+                                </div>
                             </label>
                         </div>
                     </div>
