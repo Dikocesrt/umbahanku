@@ -5,10 +5,12 @@ import StatsGroup from "@/app/components/shared/stats/StatsGroup";
 import AdminsTable from "@/app/components/admins/AdminsTable";
 import AdminsMobile from "@/app/components/admins/AdminsMobile";
 import AdminsModal from "@/app/components/admins/AdminsModal";
+import AdminsEditModal from "@/app/components/admins/AdminsEditModal";
 import DeleteConfirmModal from "@/app/components/shared/DeleteConfirmModal";
 
 export default function Admins() {
     const [openModal, setOpenModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const handleDelete = () => {
@@ -63,16 +65,30 @@ export default function Admins() {
                 <StatsGroup stats={statsData} />
 
                 {/* Tabel Admin - Desktop */}
-                <AdminsTable onAdd={() => setOpenModal(true)} onDelete={() => setShowDeleteModal(true)} />
+                <AdminsTable
+                    onAdd={() => setOpenModal(true)}
+                    onEdit={() => setShowEditModal(true)}
+                    onDelete={() => setShowDeleteModal(true)}
+                />
 
                 {/* List Admin - Mobile */}
-                <AdminsMobile onAdd={() => setOpenModal(true)} onDelete={() => setShowDeleteModal(true)} />
+                <AdminsMobile
+                    onAdd={() => setOpenModal(true)}
+                    onEdit={() => setShowEditModal(true)}
+                    onDelete={() => setShowDeleteModal(true)}
+                />
             </div>
 
             {/* Modal Tambah Admin */}
             <AdminsModal
                 open={openModal}
                 onClose={() => setOpenModal(false)}
+            />
+
+            {/* Modal Edit Admin */}
+            <AdminsEditModal
+                open={showEditModal}
+                onClose={() => setShowEditModal(false)}
             />
 
             {/* Modal Delete Confirm */}
