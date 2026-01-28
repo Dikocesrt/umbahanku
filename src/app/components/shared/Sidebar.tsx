@@ -216,7 +216,7 @@ export default function Sidebar({ sidebarOpen, closeSidebar }: SidebarProps) {
                     <Link
                         href="/master/services"
                         onClick={closeSidebar}
-                        className={isActive("/services") ? activeClass : inactiveClass}
+                        className={isActive("/master/services") ? activeClass : inactiveClass}
                     >
                         <svg
                             className="w-4 h-4"

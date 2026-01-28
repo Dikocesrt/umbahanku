@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import LayoutWrapper from "./components/layout/LayoutWrapper";
+import LayoutWrapper from "./components/shared/LayoutWrapper";
 
 const poppins = Poppins({
     variable: "--font-poppins",

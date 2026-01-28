@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import StatsGroup from "@/app/components/stats/StatsGroup";
+import StatsGroup from "@/app/components/shared/stats/StatsGroup";
 import CustomersTable from "@/app/components/customers/CustomersTable";
 import CustomersMobile from "@/app/components/customers/CustomersMobile";
 import CustomersModal from "@/app/components/customers/CustomersModal";
