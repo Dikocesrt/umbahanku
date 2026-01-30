@@ -5,6 +5,7 @@ import StatsGroup from "@/app/components/shared/stats/StatsGroup";
 import TabelService from "@/app/components/services/TabelService";
 import ServicesModal from "@/app/components/services/ServicesModal";
 import ServicesEditModal from "@/app/components/services/ServicesEditModal";
+import ServicesDetailModal from "@/app/components/services/ServicesDetailModal";
 import DeleteConfirmModal from "@/app/components/shared/DeleteConfirmModal";
 import ListServiceMobile from "@/app/components/services/ListServiceMobile";
 
@@ -13,6 +14,7 @@ export default function Services() {
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDetailModal, setShowDetailModal] = useState(false);
 
     const handleDelete = () => {
         // Logika hapus data di sini
@@ -70,6 +72,7 @@ export default function Services() {
                     onAdd={() => setShowModal(true)}
                     onEdit={() => setShowEditModal(true)}
                     onDelete={() => setShowDeleteModal(true)}
+                    onDetail={() => setShowDetailModal(true)}
                 />
 
                 {/* Card List Layanan(Mobile) */}
@@ -78,6 +81,7 @@ export default function Services() {
                         onAdd={() => setShowModal(true)}
                         onEdit={() => setShowEditModal(true)}
                         onDelete={() => setShowDeleteModal(true)}
+                        onDetail={() => setShowDetailModal(true)}
                     />
                 </div>
 
@@ -88,6 +92,9 @@ export default function Services() {
 
             {/* Modal Edit */}
             <ServicesEditModal open={showEditModal} onClose={() => setShowEditModal(false)} />
+
+            {/* Modal Detail */}
+            <ServicesDetailModal open={showDetailModal} onClose={() => setShowDetailModal(false)} />
 
             {/* Modal Delete Confirm */}
             <DeleteConfirmModal
