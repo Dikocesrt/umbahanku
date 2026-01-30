@@ -1,4 +1,4 @@
-export default function CustomersTable({ onAdd }: { onAdd: () => void }) {
+export default function CustomersTable({ onAdd, onEdit, onDelete }: { onAdd: () => void; onEdit: () => void; onDelete: () => void }) {
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hidden md:block">
             {/* Header Section */}
@@ -69,7 +69,7 @@ export default function CustomersTable({ onAdd }: { onAdd: () => void }) {
                                 {/* Aksi */}
                                 <div className="flex justify-center gap-2">
                                     {/* Edit */}
-                                    <button className="p-1.5 rounded-lg bg-blue-100 text-blue-600 transition">
+                                    <button onClick={() => onEdit()} className="p-1.5 rounded-lg bg-blue-100 text-blue-600 transition">
                                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20.8506 12.0002V6.50992C20.8506 4.48846 19.2118 2.84973 17.1904 2.84973H6.5098C4.48833 2.84973 2.84961 4.48845 2.84961 6.50992V17.4905C2.84961 19.512 4.48833 21.1507 6.5098 21.1507H11.8501" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
                                             <path d="M7.00269 12H10.0018" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
@@ -78,7 +78,7 @@ export default function CustomersTable({ onAdd }: { onAdd: () => void }) {
                                         </svg>
                                     </button>
                                     {/* Hapus */}
-                                    <button className="p-1.5 rounded-lg bg-red-100 text-red-600 transition">
+                                    <button onClick={() => onDelete()} className="p-1.5 rounded-lg bg-red-100 text-red-600 transition">
                                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M8 6V4.41421C8 3.63317 8.63317 3 9.41421 3H14.5858C15.3668 3 16 3.63317 16 4.41421V6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
                                             <path d="M5.7372 6.54395V18.9857C5.7372 19.7449 6.35269 20.3604 7.11194 20.3604H16.8894C17.6487 20.3604 18.2642 19.7449 18.2642 18.9857V6.54395M2.90918 6.54395H21.091" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />

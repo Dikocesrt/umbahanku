@@ -5,29 +5,38 @@ import StatsGroup from "@/app/components/shared/stats/StatsGroup";
 import AdminsTable from "@/app/components/admins/AdminsTable";
 import AdminsMobile from "@/app/components/admins/AdminsMobile";
 import AdminsModal from "@/app/components/admins/AdminsModal";
+import AdminsEditModal from "@/app/components/admins/AdminsEditModal";
+import DeleteConfirmModal from "@/app/components/shared/DeleteConfirmModal";
 
 export default function Admins() {
     const [openModal, setOpenModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const handleDelete = () => {
+        console.log("Data admin dihapus!");
+        setShowDeleteModal(false);
+    };
 
     // Stats Data
     const statsData = [
         {
             title: "Total Admin",
             value: 3,
-            bgColor: "bg-indigo-500",
-            textColor: "text-indigo-100",
+            bgColor: "bg-cyan-600",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             ),
         },
         {
             title: "Admin Aktif",
             value: 2,
-            bgColor: "bg-green-500",
-            textColor: "text-green-100",
+            bgColor: "bg-cyan-700",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -38,8 +47,8 @@ export default function Admins() {
         {
             title: "Admin Nonaktif",
             value: 1,
-            bgColor: "bg-emerald-500",
-            textColor: "text-emerald-100",
+            bgColor: "bg-cyan-800",
+            textColor: "text-white",
             icon: (
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -56,16 +65,39 @@ export default function Admins() {
                 <StatsGroup stats={statsData} />
 
                 {/* Tabel Admin - Desktop */}
-                <AdminsTable onAdd={() => setOpenModal(true)} />
+                <AdminsTable
+                    onAdd={() => setOpenModal(true)}
+                    onEdit={() => setShowEditModal(true)}
+                    onDelete={() => setShowDeleteModal(true)}
+                />
 
                 {/* List Admin - Mobile */}
-                <AdminsMobile onAdd={() => setOpenModal(true)} />
+                <AdminsMobile
+                    onAdd={() => setOpenModal(true)}
+                    onEdit={() => setShowEditModal(true)}
+                    onDelete={() => setShowDeleteModal(true)}
+                />
             </div>
 
             {/* Modal Tambah Admin */}
             <AdminsModal
                 open={openModal}
                 onClose={() => setOpenModal(false)}
+            />
+
+            {/* Modal Edit Admin */}
+            <AdminsEditModal
+                open={showEditModal}
+                onClose={() => setShowEditModal(false)}
+            />
+
+            {/* Modal Delete Confirm */}
+            <DeleteConfirmModal
+                open={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={handleDelete}
+                title="Hapus Admin"
+                message="Apakah Anda yakin ingin menghapus admin ini? Data yang dihapus tidak dapat dikembalikan."
             />
         </>
     );
