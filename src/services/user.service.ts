@@ -6,36 +6,30 @@ import {
     ValidationError,
 } from "@/errors";
 import { requireAuth } from "@/lib/auth";
+import { hashPassword } from "@/lib/password";
+import { toUserCreateInput, toUserUpdateInput } from "@/mappers/user.mapper";
 import {
-    toCustomerCreateInput,
-    toCustomerUpdateInput,
-} from "@/mappers/customer.mapper";
-import {
-    createCustomerRepo,
-    findCustomerByIdRepo,
-    findCustomerByPhoneRepo,
-    findCustomersRepo,
-    updateCustomerRepo,
-} from "@/repositories/customer.repository";
-import { findUserById } from "@/repositories/user.repository";
-import {
-    createCustomerSchema,
-    updateCustomerSchema,
-} from "@/dtos/customer.dto";
+    createUserRepo,
+    findUserById,
+    findUserByUsername,
+    findUsersRepo,
+    updateUserRepo,
+} from "@/repositories/user.repository";
+import { createUserSchema, updateUserSchema } from "@/dtos/user.dto";
 import {
     createPaginationMeta,
     PaginatedSuccessResponse,
     PaginationQuery,
 } from "@/dtos/response.dto";
-import { customers } from "@/generated/prisma/client";
+import { users } from "@/generated/prisma/client";
 
-export async function createCustomerService(
+export async function createUserService(
     body: unknown,
     token: string,
 ): Promise<void> {
     const user = requireAuth(token);
 
-    const parsed = createCustomerSchema.safeParse(body);
+    const parsed = createUserSchema.safeParse(body);
     if (!parsed.success) {
         throw new ValidationError(
             parsed.error.issues.map((issue) => ({
@@ -62,28 +56,31 @@ export async function createCustomerService(
         throw new ForbiddenError("User tidak memiliki akses");
     }
 
-    const checkCustomerByPhone = await findCustomerByPhoneRepo(
-        parsed.data.phone,
-    );
-    if (checkCustomerByPhone) {
-        throw new ConflictError(
-            "Customer dengan nomor telepon ini sudah terdaftar",
-        );
+    const existingUser = await findUserByUsername(parsed.data.username);
+    if (existingUser) {
+        throw new ConflictError("Username sudah terdaftar");
     }
 
-    const input = toCustomerCreateInput(parsed.data, user.userId);
+    const defaultPassword = process.env.DEFAULT_PASSWORD;
+    if (!defaultPassword) {
+        throw new Error("DEFAULT_PASSWORD belum di-set di environment");
+    }
 
-    await createCustomerRepo(input);
+    const hashedPassword = await hashPassword(defaultPassword);
+
+    const input = toUserCreateInput(parsed.data, hashedPassword, user.userId);
+
+    await createUserRepo(input);
 }
 
-export async function updateCustomerService(
+export async function updateUserService(
     id: string,
     body: unknown,
     token: string,
 ): Promise<void> {
     const user = requireAuth(token);
 
-    const parsed = updateCustomerSchema.safeParse(body);
+    const parsed = updateUserSchema.safeParse(body);
     if (!parsed.success) {
         throw new ValidationError(
             parsed.error.issues.map((issue) => ({
@@ -102,41 +99,49 @@ export async function updateCustomerService(
         throw new ForbiddenError("User tidak aktif");
     }
 
-    if (
-        checkUserLoggedIn.role.toLowerCase() !==
-            USER_ROLES_SUPERADMIN.toLowerCase() &&
-        checkUserLoggedIn.role.toLowerCase() !== USER_ROLES_ADMIN.toLowerCase()
-    ) {
-        throw new ForbiddenError("User tidak memiliki akses");
+    const targetUser = await findUserById(id);
+    if (!targetUser) {
+        throw new NotFoundError("User yang akan diupdate tidak ditemukan");
     }
 
-    // Check if customer exists
-    const existingCustomer = await findCustomerByIdRepo(id);
-    if (!existingCustomer) {
-        throw new NotFoundError("Customer tidak ditemukan");
-    }
-
-    // Check if phone already used by another customer
-    if (parsed.data.phone && parsed.data.phone !== existingCustomer.phone) {
-        const customerWithPhone = await findCustomerByPhoneRepo(
-            parsed.data.phone,
+    if (parsed.data.password && user.userId !== id) {
+        throw new ForbiddenError(
+            "Password hanya dapat diubah oleh user yang bersangkutan",
         );
-        if (customerWithPhone) {
-            throw new ConflictError(
-                "Customer dengan nomor telepon ini sudah terdaftar",
-            );
+    }
+
+    if (user.userId !== id) {
+        if (
+            checkUserLoggedIn.role.toLowerCase() !==
+                USER_ROLES_SUPERADMIN.toLowerCase() &&
+            checkUserLoggedIn.role.toLowerCase() !==
+                USER_ROLES_ADMIN.toLowerCase()
+        ) {
+            throw new ForbiddenError("User tidak memiliki akses");
         }
     }
 
-    const input = toCustomerUpdateInput(parsed.data, user.userId);
+    if (parsed.data.username && parsed.data.username !== targetUser.username) {
+        const userWithUsername = await findUserByUsername(parsed.data.username);
+        if (userWithUsername) {
+            throw new ConflictError("Username sudah digunakan");
+        }
+    }
 
-    await updateCustomerRepo(id, input);
+    let hashedPassword: string | undefined;
+    if (parsed.data.password) {
+        hashedPassword = await hashPassword(parsed.data.password);
+    }
+
+    const input = toUserUpdateInput(parsed.data, user.userId, hashedPassword);
+
+    await updateUserRepo(id, input);
 }
 
-export async function getCustomersService(
+export async function getUsersService(
     token: string,
     query: PaginationQuery,
-): Promise<PaginatedSuccessResponse<customers>> {
+): Promise<PaginatedSuccessResponse<users>> {
     const user = requireAuth(token);
 
     const checkUserLoggedIn = await findUserById(user.userId);
@@ -156,7 +161,7 @@ export async function getCustomersService(
         throw new ForbiddenError("User tidak memiliki akses");
     }
 
-    const { data: customers, totalItems } = await findCustomersRepo(
+    const { data: users, totalItems } = await findUsersRepo(
         query.page,
         query.limit,
         query.search,
@@ -166,8 +171,8 @@ export async function getCustomersService(
 
     return {
         success: true,
-        message: "Customers berhasil diambil",
-        data: customers,
+        message: "Users berhasil diambil",
+        data: users,
         meta: createPaginationMeta(query.page, query.limit, totalItems),
     };
 }
