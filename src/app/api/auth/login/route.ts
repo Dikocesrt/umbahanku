@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { login } from "@/services/auth.service";
-import { successResponse, errorResponse } from "@/lib/response";
+import { successResponse, errorResponse } from "@/dtos/response.dto";
 import { HttpError } from "@/errors";
 
 export async function POST(request: NextRequest) {

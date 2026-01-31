@@ -1,20 +1,20 @@
 import { NextRequest } from "next/server";
-import { verifyToken, JwtPayload } from "@/lib/jwt";
+import { JwtPayload, verifyToken } from "@/lib/jwt";
 import { UnauthorizedError } from "@/errors";
 
-export function getAuthUser(request: NextRequest): JwtPayload | null {
+export function getToken(request: NextRequest): string {
     const authHeader = request.headers.get("Authorization");
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return null;
+        throw new UnauthorizedError();
     }
 
     const token = authHeader.replace("Bearer ", "");
-    return verifyToken(token);
+    return token;
 }
 
-export function requireAuth(request: NextRequest): JwtPayload {
-    const user = getAuthUser(request);
+export function requireAuth(token: string): JwtPayload {
+    const user = verifyToken(token);
 
     if (!user) {
         throw new UnauthorizedError();
