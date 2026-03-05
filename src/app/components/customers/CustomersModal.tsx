@@ -1,4 +1,33 @@
+"use client";
+import { useState } from "react";
+
 export default function CustomerModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
+
+    const handleSimpan = async () => {
+        const token = localStorage.getItem("token"); // mengambil token dari locak storage
+
+        const res = await fetch("/api/customers", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                name,
+                phone,
+                address,
+            }),
+        });
+
+        if (res.ok) {
+            onClose();
+        }
+    }
+
     if (!open) return null;
 
     return (
@@ -28,6 +57,8 @@ export default function CustomerModal({ open, onClose }: { open: boolean; onClos
                             type="text"
                             className="w-full px-3 py-2 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-500"
                             placeholder="Masukkan nama"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
@@ -38,6 +69,8 @@ export default function CustomerModal({ open, onClose }: { open: boolean; onClos
                             type="tel"
                             className="w-full px-3 py-2 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-500"
                             placeholder="08xxxxx"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                         />
                     </div>
 
@@ -48,12 +81,14 @@ export default function CustomerModal({ open, onClose }: { open: boolean; onClos
                             type="text"
                             className="w-full px-3 py-2 text-sm text-gray-700 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/30 focus:border-blue-500"
                             placeholder="Masukkan alamat"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
                         />
                     </div>
 
                     <div className="flex justify-end gap-2 mt-4">
                         <button onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded-lg"> Batal</button>
-                        <button className="bg-blue-400 text-white px-4 py-2 rounded-lg">Simpan</button>
+                        <button onClick={handleSimpan} className="bg-blue-400 text-white px-4 py-2 rounded-lg">Simpan</button>
                     </div>
                 </div>
             </div>
